@@ -1,6 +1,5 @@
 package ru.rzhanito.uchet.sklad.model;
 
-import ru.rzhanito.uchet.sklad.entity.GoodsEntity;
 import ru.rzhanito.uchet.sklad.entity.WarehouseEntity;
 
 import java.util.List;

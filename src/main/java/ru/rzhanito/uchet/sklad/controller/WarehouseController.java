@@ -1,7 +1,6 @@
 package ru.rzhanito.uchet.sklad.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.rzhanito.uchet.sklad.entity.WarehouseEntity;
@@ -69,7 +68,7 @@ public class WarehouseController {
     }
 
     @PatchMapping("edit/{name}")
-    public ResponseEntity editWarehousePartially
+    public ResponseEntity<Object> editWarehousePartially
             (@PathVariable String name,
              @RequestParam(required = false) String newName,
              @RequestParam(required = false) String location,

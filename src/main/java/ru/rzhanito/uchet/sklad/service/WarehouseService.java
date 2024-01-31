@@ -7,7 +7,6 @@ import ru.rzhanito.uchet.sklad.exception.WarehouseNotFoundException;
 import ru.rzhanito.uchet.sklad.model.Warehouse;
 import ru.rzhanito.uchet.sklad.repo.WarehouseRepo;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
