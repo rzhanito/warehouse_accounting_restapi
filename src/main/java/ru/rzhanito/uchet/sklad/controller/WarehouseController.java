@@ -23,7 +23,7 @@ public class WarehouseController {
     @PostMapping("create")
     public ResponseEntity<String> createWarehouse(@RequestBody @Valid WarehouseEntity warehouse) throws EntityAlreadyExistsException {
         warehouseService.createWarehouse(warehouse);
-        return ResponseEntity.ok().body("Склад успешно создан.");
+        return ResponseEntity.ok().body("Склад " + warehouse.getName() + " успешно создан.");
     }
 
     @DeleteMapping("delete")

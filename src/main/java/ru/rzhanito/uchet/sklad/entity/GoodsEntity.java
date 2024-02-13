@@ -8,7 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.rzhanito.uchet.sklad.response.Categories;
 
-@Entity(name = "goods")
+@Entity
+@Table(name = "goods")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

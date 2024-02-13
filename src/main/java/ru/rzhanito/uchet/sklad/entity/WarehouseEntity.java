@@ -13,11 +13,12 @@ import org.hibernate.annotations.Where;
 
 import java.util.List;
 
-@Entity(name = "warehouse")
+@Entity
+@Table(name = "warehouses")
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE warehouse SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE warehouses SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class WarehouseEntity {
 
