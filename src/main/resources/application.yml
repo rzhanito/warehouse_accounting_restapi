@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/sklad
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+  application:
+    name: warehouse-accounting
+server:
+  servlet:
+    context-path: /w-acc
+  port: 8080

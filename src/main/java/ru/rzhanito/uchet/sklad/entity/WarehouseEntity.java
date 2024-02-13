@@ -5,13 +5,21 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.util.List;
 
 @Entity(name = "warehouse")
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
+@SQLDelete(sql = "UPDATE warehouse SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class WarehouseEntity {
-    public WarehouseEntity() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,51 +36,6 @@ public class WarehouseEntity {
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "warehouse")
     private List<GoodsEntity> goods;
 
+    private boolean deleted = false;
 
-    public WarehouseEntity(Long id, String name, String location, Integer capacity) {
-        this.id = id;
-        this.name = name;
-        this.location = location;
-        this.capacity = capacity;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public List<GoodsEntity> getGoods() {
-        return goods;
-    }
-
-    public void setGoods(List<GoodsEntity> goods) {
-        this.goods = goods;
-    }
 }

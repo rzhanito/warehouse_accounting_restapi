@@ -10,7 +10,7 @@
     </parent>
     <groupId>ru.rzhanito.uchet</groupId>
     <artifactId>Sklad</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>Sklad</name>
     <description>Sklad</description>
     <properties>
@@ -39,6 +39,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>annotationProcessor</scope>
         </dependency>
     </dependencies>
 

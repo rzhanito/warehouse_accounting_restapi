@@ -2,10 +2,10 @@ package ru.rzhanito.uchet.sklad.service;
 
 import org.springframework.stereotype.Service;
 import ru.rzhanito.uchet.sklad.entity.WarehouseEntity;
-import ru.rzhanito.uchet.sklad.exception.WarehouseAlreadyExistsException;
-import ru.rzhanito.uchet.sklad.exception.WarehouseNotFoundException;
-import ru.rzhanito.uchet.sklad.model.Warehouse;
+import ru.rzhanito.uchet.sklad.exception.EntityAlreadyExistsException;
+import ru.rzhanito.uchet.sklad.exception.EntityNotFoundException;
 import ru.rzhanito.uchet.sklad.repo.WarehouseRepo;
+import ru.rzhanito.uchet.sklad.response.WarehouseResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,42 +19,42 @@ public class WarehouseService {
         this.warehouseRepo = warehouseRepo;
     }
 
-    public void createWarehouse(WarehouseEntity warehouse) throws WarehouseAlreadyExistsException {
+    public void createWarehouse(WarehouseEntity warehouse) throws EntityAlreadyExistsException {
         if (warehouseRepo.findByName(warehouse.getName()).isEmpty()) {
             warehouseRepo.save(warehouse);
         } else
-            throw new WarehouseAlreadyExistsException("Склад с таким названием уже существует.");
+            throw new EntityAlreadyExistsException("Склад с таким названием уже существует.");
     }
 
-    public Warehouse deleteWarehouse(String warehouseName) throws WarehouseNotFoundException {
+    public WarehouseResponse deleteWarehouse(String warehouseName) throws EntityNotFoundException {
         Optional<WarehouseEntity> warehouse = warehouseRepo.findByName(warehouseName);
         if (warehouse.isPresent()) {
             warehouseRepo.delete(warehouse.get());
-            return Warehouse.toModel(warehouse.get());
+            return WarehouseResponse.toModel(warehouse.get());
         } else {
-            throw new WarehouseNotFoundException("Склада с названием: " + warehouseName + " не существует.");
+            throw new EntityNotFoundException("Склада с названием: " + warehouseName + " не существует.");
         }
     }
 
-    public List<Warehouse> getAllWarehouses() throws WarehouseNotFoundException{
+    public List<WarehouseResponse> getAllWarehouses() throws EntityNotFoundException {
         List<WarehouseEntity> warehouses = warehouseRepo.findAll();
         if(warehouses.isEmpty()){
-            throw new WarehouseNotFoundException("Складов нет.");
+            throw new EntityNotFoundException("Складов нет.");
         } else{
-            return warehouses.stream().map(Warehouse::toModel).collect(Collectors.toList());
+            return warehouses.stream().map(WarehouseResponse::toModel).collect(Collectors.toList());
         }
     }
 
-    public Warehouse getWarehouseByName(String name) throws WarehouseNotFoundException{
+    public WarehouseResponse getWarehouseByName(String name) throws EntityNotFoundException {
         Optional<WarehouseEntity> warehouse = warehouseRepo.findByName(name);
         if(warehouse.isPresent()){
-            return Warehouse.toModel(warehouse.get());
+            return WarehouseResponse.toModel(warehouse.get());
         }else {
-            throw new WarehouseNotFoundException("Склад " + name + " не найден.");
+            throw new EntityNotFoundException("Склад " + name + " не найден.");
         }
     }
 
-    public Warehouse editWarehousePartially(String name, String newName, String location, Integer capacity) throws WarehouseNotFoundException{
+    public WarehouseResponse editWarehousePartially(String name, String newName, String location, Integer capacity) throws EntityNotFoundException {
         Optional<WarehouseEntity> warehouse = warehouseRepo.findByName(name);
         if(warehouse.isPresent()){
             if(newName != null){
@@ -67,9 +67,9 @@ public class WarehouseService {
                 warehouse.get().setCapacity(capacity);
             }
             warehouseRepo.save(warehouse.get());
-            return Warehouse.toModel(warehouse.get());
+            return WarehouseResponse.toModel(warehouse.get());
         } else{
-            throw new WarehouseNotFoundException("Склад " + name + " не найден.");
+            throw new EntityNotFoundException("Склад " + name + " не найден.");
         }
 
     }
