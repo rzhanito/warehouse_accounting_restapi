@@ -2,7 +2,6 @@ package ru.rzhanito.uchet.sklad.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ru.rzhanito.uchet.sklad.entity.GoodsEntity;
 

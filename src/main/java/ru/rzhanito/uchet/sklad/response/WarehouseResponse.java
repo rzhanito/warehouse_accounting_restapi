@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import ru.rzhanito.uchet.sklad.entity.WarehouseEntity;
 
 import java.util.List;
-import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

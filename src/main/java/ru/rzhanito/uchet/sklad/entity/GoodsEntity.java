@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import ru.rzhanito.uchet.sklad.response.Categories;
 
 @Entity
@@ -13,6 +15,8 @@ import ru.rzhanito.uchet.sklad.response.Categories;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE goods SET deleted = true WHERE id = ?")
+@SQLRestriction("deleted <> true")
 public class GoodsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +32,5 @@ public class GoodsEntity {
     @NotNull(message = "Склад не может быть null")
     private WarehouseEntity warehouse;
 
+    private boolean deleted = false;
 }
