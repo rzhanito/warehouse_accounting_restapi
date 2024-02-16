@@ -1,6 +1,7 @@
 package ru.rzhanito.uchet.sklad.controller;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.rzhanito.uchet.sklad.entity.WarehouseEntity;
@@ -13,12 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("warehouse")
+@AllArgsConstructor
 public class WarehouseController {
     private final WarehouseService warehouseService;
-
-    public WarehouseController(WarehouseService warehouseService) {
-        this.warehouseService = warehouseService;
-    }
 
     @PostMapping("create")
     public ResponseEntity<String> createWarehouse(@RequestBody @Valid WarehouseEntity warehouse) throws EntityAlreadyExistsException {
@@ -31,7 +29,7 @@ public class WarehouseController {
         return ResponseEntity.ok().body(warehouseService.deleteWarehouse(warehouseName));
     }
 
-    @GetMapping("get/all")
+    @GetMapping("get_all")
     public ResponseEntity<Object> getAllWarehouses() throws EntityNotFoundException {
         List<WarehouseResponse> warehouses = warehouseService.getAllWarehouses();
         return ResponseEntity.ok().body(warehouses);
@@ -47,7 +45,7 @@ public class WarehouseController {
             (@PathVariable String name,
              @RequestParam(required = false) String newName,
              @RequestParam(required = false) String location,
-             @RequestParam(required = false) Integer capacity) throws EntityNotFoundException {
+             @RequestParam(required = false) Long capacity) throws EntityNotFoundException {
         return ResponseEntity.ok().body(warehouseService.editWarehousePartially(name, newName, location, capacity));
 
     }

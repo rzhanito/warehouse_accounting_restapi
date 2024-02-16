@@ -54,7 +54,7 @@ public class WarehouseService {
         }
     }
 
-    public WarehouseResponse editWarehousePartially(String name, String newName, String location, Integer capacity) throws EntityNotFoundException {
+    public WarehouseResponse editWarehousePartially(String name, String newName, String location, Long capacity) throws EntityNotFoundException {
         Optional<WarehouseEntity> warehouse = warehouseRepo.findByName(name);
         if(warehouse.isPresent()){
             if(newName != null){

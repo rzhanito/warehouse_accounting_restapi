@@ -1,24 +1,24 @@
 package ru.rzhanito.uchet.sklad.controller;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.rzhanito.uchet.sklad.entity.GoodsEntity;
 import ru.rzhanito.uchet.sklad.exception.EntityAlreadyExistsException;
 import ru.rzhanito.uchet.sklad.exception.EntityNotFoundException;
+import ru.rzhanito.uchet.sklad.exception.GoodsCannotFitIntoWarehouseException;
 import ru.rzhanito.uchet.sklad.service.GoodsService;
 
 @RestController
 @RequestMapping("goods")
+@AllArgsConstructor
 public class GoodsController {
     private final GoodsService goodsService;
 
-    public GoodsController(GoodsService goodsService) {
-        this.goodsService = goodsService;
-    }
-
     @PostMapping("add")
-    public ResponseEntity<String> addGoods(@Valid @RequestBody GoodsEntity goodsEntity) throws EntityNotFoundException {
+    public ResponseEntity<String> addGoods(@Valid @RequestBody GoodsEntity goodsEntity)
+            throws EntityNotFoundException, GoodsCannotFitIntoWarehouseException {
         return ResponseEntity.ok(goodsService.addGoods(goodsEntity));
     }
 
@@ -28,9 +28,9 @@ public class GoodsController {
         return ResponseEntity.ok().body("Товар " + goodsName + " перемещен на склад " + anotherWarehouseName);
     }
 
-    @DeleteMapping("delete/{name}")
-    public ResponseEntity<String> deleteGoods(@PathVariable(value = "name") String goodsToDeleteName) throws EntityAlreadyExistsException {
-        goodsService.deleteGoods(goodsToDeleteName);
+    @DeleteMapping("delete")
+    public ResponseEntity<String> deleteGoods(@RequestParam(value = "goodsName") String goodsToDeleteName, @RequestParam(value = "warehouseName") String warehouseName) throws EntityNotFoundException {
+        goodsService.deleteGoods(goodsToDeleteName, warehouseName);
         return ResponseEntity.ok().body("Товар " + goodsToDeleteName + " удалён из базы данных.");
     }
 

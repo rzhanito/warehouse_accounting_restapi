@@ -12,7 +12,7 @@ import java.util.List;
 public class WarehouseResponse {
     private String name;
     private String location;
-    private Integer capacity;
+    private Long capacity;
     private List<GoodsResponse> goods;
 
     public static WarehouseResponse toModel(WarehouseEntity entity){

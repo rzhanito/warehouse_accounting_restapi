@@ -32,8 +32,8 @@ public class WarehouseEntity {
     private String location;
     @NotNull(message = "Вместимость не может быть null")
     @Max(value = 500000, message = "Максимальная вместимость - 500000")
-    @Min(value = 10000, message = "Минимальная вместимость - 10000")
-    private Integer capacity;
+    @Min(value = 0, message = "Минимальная вместимость - 0")
+    private Long capacity;
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "warehouse")
     private List<GoodsEntity> goods;
 

@@ -36,4 +36,9 @@ public class CustomExceptionHandler {
     public ResponseEntity<String> handleUnhandledException(Exception e){
         return ResponseEntity.badRequest().body("Необработанная ошибка." + "\n" + e.getMessage());
     }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleGoodsCannotFitIntoWarehouseException(GoodsCannotFitIntoWarehouseException e){
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 }
