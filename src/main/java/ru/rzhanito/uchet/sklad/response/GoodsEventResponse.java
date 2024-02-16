@@ -1,11 +1,8 @@
 package ru.rzhanito.uchet.sklad.response;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.rzhanito.uchet.sklad.entity.GoodsEntity;
-import ru.rzhanito.uchet.sklad.entity.GoodsEventEntity;
 import ru.rzhanito.uchet.sklad.enum_categories.GoodsEventCategory;
 
 import java.time.LocalDateTime;
