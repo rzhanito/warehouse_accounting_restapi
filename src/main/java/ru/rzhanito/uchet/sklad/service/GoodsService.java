@@ -34,17 +34,25 @@ public class GoodsService {
                         .findFirst();
             }
 
-
             if (foundWarehouse.getCapacity() - newGoods.getAmount() >= 0) {
 
                 if (foundGoodsInWarehouse.isPresent()) {
                     GoodsEntity foundGoods = foundGoodsInWarehouse.get();
+
+                    // copying goodsEntity to save it
+                    GoodsEntity savedFoundGoodsForHistory = new GoodsEntity();
+                    savedFoundGoodsForHistory.setName(foundGoods.getName());
+                    savedFoundGoodsForHistory.setAmount(foundGoods.getAmount());
+                    savedFoundGoodsForHistory.setWeight(foundGoods.getWeight());
+                    savedFoundGoodsForHistory.setCategory(foundGoods.getCategory());
+                    savedFoundGoodsForHistory.setWarehouse(foundGoods.getWarehouse());
+
                     foundWarehouse.setCapacity(foundWarehouse.getCapacity() - newGoods.getAmount());
                     foundGoods.setWeight(foundGoods.getWeight() + newGoods.getWeight());
                     foundGoods.setAmount(foundGoods.getAmount() + newGoods.getAmount());
                     goodsRepo.save(foundGoods);
                     warehouseRepo.save(foundWarehouse);
-                    goodsEventService.addingGoodsEvent(foundGoods);
+                    goodsEventService.changingGoodsEvent(savedFoundGoodsForHistory, foundGoods);
                     return "Такой товар уже есть на этом складе. Увеличены количество и вес товара.";
                 } else {
                     newGoods.setWarehouse(foundWarehouse);
